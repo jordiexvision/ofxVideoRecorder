@@ -53,7 +53,7 @@ void execThread::threadedFunction() {
 
 //===============================
 ofxVideoDataWriterThread::ofxVideoDataWriterThread() {
-	thread.setName("Video Thread");
+//	thread.setName("Video Thread");
 };
 #if defined( TARGET_OSX ) || defined( TARGET_LINUX )
 void ofxVideoDataWriterThread::setup(string filePath, lockFreeQueue<ofPixels *> * q) {
@@ -176,7 +176,7 @@ void ofxVideoDataWriterThread::setPipeNonBlocking() {
 
 //===============================
 ofxAudioDataWriterThread::ofxAudioDataWriterThread() {
-	thread.setName("Audio Thread");
+//	thread.setName("Audio Thread");
 };
 
 #if defined( TARGET_OSX ) || defined( TARGET_LINUX )
