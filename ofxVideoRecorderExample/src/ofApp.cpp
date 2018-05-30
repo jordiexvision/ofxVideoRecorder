@@ -7,10 +7,23 @@ void ofApp::setup(){
 
     ofSetFrameRate(60);
     ofSetLogLevel(OF_LOG_VERBOSE);
-    vidGrabber.setDesiredFrameRate(30);
-    vidGrabber.initGrabber(640, 480);
+
+//    vidGrabber.setDesiredFrameRate(30);
+//    vidGrabber.initGrabber(640, 480);
+
+//	vidGrabber.load("../../../../../MEDIA/movies/fingers.mov");
+//	vidGrabber.load("G:\\MEDIA\\movies\\fingers.mov");
+//	vidGrabber.load("G:\\MEDIA\\movies\\drop.avi");
+	vidGrabber.load("G:\\MEDIA\\movies\\ducks-mp4.mp4");
+//	vidGrabber.load("G:\\MEDIA\\movies\\ducks-mjpeg.mov");
+//	vidGrabber.load("G:\\MEDIA\\movies\\sf.mov");
+
+
+	vidGrabber.setLoopState(OF_LOOP_NORMAL);
+	vidGrabber.play();
+
 #ifdef TARGET_WIN32
-	vidRecorder.setFfmpegLocation("C:\\ffmpeg\\bin\\"); // use this is you have ffmpeg installed in your data folder
+	vidRecorder.setFfmpegLocation("C:\\ffmpeg\\bin\\ffmpeg.exe"); // use this is you have ffmpeg installed in your data folder
 #endif
     fileName = "testMovie";
     fileExt = ".mp4"; // ffmpeg uses the extension to determine the container type. run 'ffmpeg -formats' to see supported formats
@@ -18,13 +31,14 @@ void ofApp::setup(){
     // override the default codecs if you like
     // run 'ffmpeg -codecs' to find out what your implementation supports (or -formats on some older versions)
     vidRecorder.setVideoCodec("mpeg4"); 
-    vidRecorder.setVideoBitrate("800k");
-    vidRecorder.setAudioCodec("mp3");
-    vidRecorder.setAudioBitrate("192k");
+//	vidRecorder.setVideoCodec("h264");
+	vidRecorder.setVideoBitrate("1000k");
+//    vidRecorder.setAudioCodec("mp3");
+//    vidRecorder.setAudioBitrate("192k");
 
 //    soundStream.listDevices();
 //    soundStream.setDeviceID(11);
-    soundStream.setup(this, 0, channels, sampleRate, 256, 4);
+//    soundStream.setup(this, 0, channels, sampleRate, 256, 4);
 
     ofSetWindowShape(vidGrabber.getWidth(), vidGrabber.getHeight()	);
     bRecording = false;
@@ -45,6 +59,7 @@ void ofApp::update(){
         }
     }
     
+	/*
     // Check if the video recorder encountered any error while writing video frame or audio smaples.
     if (vidRecorder.hasVideoError()) {
         ofLogWarning("The video recorder failed to write some frames!");
@@ -53,6 +68,7 @@ void ofApp::update(){
     if (vidRecorder.hasAudioError()) {
         ofLogWarning("The video recorder failed to write some audio samples!");
     }
+	*/
 }
 
 //--------------------------------------------------------------
@@ -93,8 +109,8 @@ void ofApp::keyReleased(int key){
     if(key=='r'){
         bRecording = !bRecording;
         if(bRecording && !vidRecorder.isInitialized()) {
-            vidRecorder.setup(fileName+ofGetTimestampString()+fileExt, vidGrabber.getWidth(), vidGrabber.getHeight(), 30, sampleRate, channels);
-//          vidRecorder.setup(fileName+ofGetTimestampString()+fileExt, vidGrabber.getWidth(), vidGrabber.getHeight(), 30); // no audio
+//            vidRecorder.setup(fileName+ofGetTimestampString()+fileExt, vidGrabber.getWidth(), vidGrabber.getHeight(), 30, sampleRate, channels);
+          vidRecorder.setup(fileName+ofGetTimestampString(), vidGrabber.getWidth(), vidGrabber.getHeight(), 30); // no audio
 //            vidRecorder.setup(fileName+ofGetTimestampString()+fileExt, 0,0,0, sampleRate, channels); // no video
 //          vidRecorder.setupCustomOutput(vidGrabber.getWidth(), vidGrabber.getHeight(), 30, sampleRate, channels, "-vcodec mpeg4 -b 1600k -acodec mp2 -ab 128k -f mpegts udp://localhost:1234"); // for custom ffmpeg output string (streaming, etc)
             

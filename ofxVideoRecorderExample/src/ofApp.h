@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxVideoRecorder.h"
+#include "ofSoundStream.h" 
 
 class ofApp : public ofBaseApp{
     
@@ -22,7 +23,8 @@ public:
     void gotMessage(ofMessage msg);
     void audioIn(float * input, int bufferSize, int nChannels);
     
-    ofVideoGrabber      vidGrabber;
+//    ofVideoGrabber      vidGrabber;
+	ofVideoPlayer		vidGrabber;
     ofxVideoRecorder    vidRecorder;
     ofSoundStream       soundStream;
     bool bRecording;
